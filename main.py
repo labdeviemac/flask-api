@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, make_response, request
+from flask.templating import render_template
 app = Flask(__name__)
 
 # Fake DB
@@ -16,6 +17,14 @@ stock = {
         "onion": 650
     }
 }
+
+# This route returns a static page in the "templates" folder
+# Here you can return Python data in HTML page or just a template.
+# Unnecessary, right?
+@app.route("/")
+def main():
+    return render_template("index.html")
+
 
 # GET all data from stock
 @app.route("/stock")
@@ -119,5 +128,6 @@ def delete_product(section, product):
     return res
 
 
+# Deploy server
 if __name__ == "__main__":
     app.run(debug=True, port=7700)
